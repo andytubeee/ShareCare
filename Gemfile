@@ -20,6 +20,8 @@ gem 'jbuilder', '~> 2.7'
 
 gem 'rufo'
 
+gem 'mongoid', '~> 7.0.5'
+
 gem 'gmaps4rails'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
