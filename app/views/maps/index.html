@@ -1,0 +1,102 @@
+<h1 style="text-align: center;">Maps</h1>
+
+<style>
+  /* Set the size of the div element that contains the map */
+  #map {
+    height: 600px; /* The height is 400 pixels */
+    width: 100%; /* The width is the width of the web page */
+  }
+</style>
+
+<div id="map"></div>
+
+<div class="inputLoc">
+  <form action="">
+    <textarea
+      style="margin-top: 15px; resize: none;"
+      name=""
+      onkeyup="checkInput(this)"
+      id="LongIn"
+      cols="10"
+      rows="1"
+      placeholder="Longitude"
+    ></textarea>
+    <textarea
+      style="margin-top: 15px; resize: none; margin-left: 5px;"
+      name=""
+      id="LatIn"
+      onkeyup="checkInput(this)"
+      cols="10"
+      rows="1"
+      placeholder="Latitude"
+    ></textarea
+    ><textarea
+      style="margin-top: 15px; resize: none; margin-left: 5px;"
+      name=""
+      id="titleIn"
+      cols="10"
+      rows="1"
+      placeholder="Description"
+    ></textarea
+    ><button style="margin-left: 10px;" id="btnAddloc">
+      Add Location
+    </button>
+  </form>
+</div>
+
+<script
+  async
+  defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAOonoY7LIvlYYiG319PloED5zVq7MUfkM&callback=initMap"
+></script>
+
+<script>
+  var long = document.getElementById("LongIn").value;
+  var lat = document.getElementById("LatIn").value;
+  var locationInCord = { long, lat };
+  var titleInput = document.getElementById("titleIn").value.toString();
+  var Mainmap;
+
+  document
+    .getElementById("btnAddloc")
+    .addEventListener("click", function (event) {
+      addMarker(locationInCord, titleInput, Mainmap);
+    });
+
+  function initMap() {
+    var myLatLng = { lat: 43.4643, lng: -80.5204 };
+
+    Mainmap = new google.maps.Map(document.getElementById("map"), {
+      zoom: 10,
+      center: myLatLng,
+    });
+
+    var marker = new google.maps.Marker({
+      position: myLatLng,
+      map: Mainmap,
+      label: "Home",
+    });
+  }
+  function addMarker(locationInCord, titledesc, map) {
+    // Add the marker at the clicked location, and add the next-available label
+    // from the array of alphabetical characters.
+    var marker = new google.maps.Marker({
+      position: locationInCord,
+      label: titledesc,
+      map: Mainmap,
+    });
+  }
+  google.maps.event.addDomListener(window, "load", initialize);
+
+  function checkInput(ob) {
+    var invalidChars = /[^0-9]/gi;
+    if (invalidChars.test(ob.value)) {
+      ob.value = ob.value.replace(invalidChars, "");
+    }
+  }
+</script>
+<!--Load the API from the specified URL
+    * The async attribute allows the browser to render the page while the API loads
+    * The key parameter will contain your own API key (which is not needed for this tutorial)
+    * The callback parameter executes the initMap() function
+    -->
