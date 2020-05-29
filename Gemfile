@@ -18,7 +18,7 @@ gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.7'
 
-gem 'google-maps'
+gem 'rufo'
 
 gem 'gmaps4rails'
 # Use Redis adapter to run Action Cable in production

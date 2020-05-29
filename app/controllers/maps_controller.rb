@@ -3,6 +3,7 @@ class MapsController < ApplicationController
 
   # GET /maps
   # GET /maps.json
+  
   def index
     @maps = Map.all
   end
