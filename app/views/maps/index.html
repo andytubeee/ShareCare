@@ -56,12 +56,14 @@
   var locationInCord = { long, lat };
   var titleInput = document.getElementById("titleIn").value.toString();
   var Mainmap;
+  var labels = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  var labelIndex = 0;
 
-  document
-    .getElementById("btnAddloc")
-    .addEventListener("click", function (event) {
-      addMarker(locationInCord, titleInput, Mainmap);
-    });
+    document
+      .getElementById("btnAddloc")
+      .addEventListener("click", function (event) {
+        console.log(locationInCord);
+      });
 
   function initMap() {
     var myLatLng = { lat: 43.4643, lng: -80.5204 };
@@ -76,17 +78,18 @@
       map: Mainmap,
       label: "Home",
     });
+
   }
-  function addMarker(locationInCord, titledesc, map) {
+  function addMarker() {
     // Add the marker at the clicked location, and add the next-available label
     // from the array of alphabetical characters.
-    var marker = new google.maps.Marker({
-      position: locationInCord,
-      label: titledesc,
-      map: Mainmap,
-    });
+    // var marker = new google.maps.Marker({
+    //   position: locationInCord,
+    //   label: titleInput,
+    //   map: Mainmap,
+    // });
+    console.log(locationInCord);
   }
-  google.maps.event.addDomListener(window, "load", initialize);
 
   function checkInput(ob) {
     var invalidChars = /[^0-9]/gi;
@@ -95,8 +98,3 @@
     }
   }
 </script>
-<!--Load the API from the specified URL
-    * The async attribute allows the browser to render the page while the API loads
-    * The key parameter will contain your own API key (which is not needed for this tutorial)
-    * The callback parameter executes the initMap() function
-    -->
