@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class GmapControllerTest < ActionDispatch::IntegrationTest
+class RouterTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
