@@ -39,9 +39,12 @@
       placeholder="Description"
     ></textarea>
   </form>
-  <button style="margin-top:10px" id="btnAddloc">
-      Add Location
-    </button>
+  <button
+    style="margin-top: 10px; font-size: medium; cursor: grab;"
+    id="btnAddloc"
+  >
+    Add Location
+  </button>
 </div>
 
 <script
@@ -51,20 +54,19 @@
 ></script>
 
 <script>
-  var long = document.getElementById("LongIn").value;
-  var lat = document.getElementById("LatIn").value;
-  var locationInCord = { long, lat };
-  var titleInput = document.getElementById("titleIn").value.toString();
+  //var long = document.getElementById("LongIn").value;
+  //var lat = document.getElementById("LatIn").value;
+  //var locationInCord = { long, lat };
+  //var titleInput = document.getElementById("titleIn").value.toString();
   var Mainmap;
   var labels = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   var labelIndex = 0;
 
-//   document
-//     .getElementById("btnAddloc")
-//     .addEventListener("click", function (event) {
-//       location.reload();
-//       console.log(window.cookie);
-//     });
+  document.getElementById("btnAddloc").onclick = function () {
+    var long = document.getElementById("LongIn").value;
+    var lat = document.getElementById("LatIn").value
+    
+  };
 
   function initMap() {
     var myLatLng = { lat: 43.4643, lng: -80.5204 };
@@ -79,8 +81,6 @@
       map: Mainmap,
       label: "Home",
     });
-    document.cookie = `lat=${lat}`;
-    document.cookie = `lng=${long}`;
   }
 
   function setCookie(cname, cvalue, exdays) {
@@ -108,7 +108,7 @@
 
   function checkInput(ob) {
     var invalidChars = /[^0-9]/gi;
-    if (invalidChars.test(ob.value)) {
+    if (invalidChars.test(ob.value) && ob.value != '-') {
       ob.value = ob.value.replace(invalidChars, "");
     }
   }
