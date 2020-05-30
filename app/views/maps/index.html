@@ -10,7 +10,7 @@
 
 <div id="map"></div>
 
-<div class="inputLoc">
+<div class="inputLoc" style="text-align: center;">
   <form action="">
     <textarea
       style="margin-top: 15px; resize: none;"
@@ -37,11 +37,11 @@
       cols="10"
       rows="1"
       placeholder="Description"
-    ></textarea
-    ><button style="margin-left: 10px;" id="btnAddloc">
+    ></textarea>
+  </form>
+  <button style="margin-top:10px" id="btnAddloc">
       Add Location
     </button>
-  </form>
 </div>
 
 <script
@@ -59,12 +59,12 @@
   var labels = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   var labelIndex = 0;
 
-  document
-    .getElementById("btnAddloc")
-    .addEventListener("click", function (event) {
-      location.reload();
-      console.log(window.cookie);
-    });
+//   document
+//     .getElementById("btnAddloc")
+//     .addEventListener("click", function (event) {
+//       location.reload();
+//       console.log(window.cookie);
+//     });
 
   function initMap() {
     var myLatLng = { lat: 43.4643, lng: -80.5204 };
