@@ -82,6 +82,8 @@
     var myLatLng = { lat: 43.4643, lng: -80.5204 };
     var GRHCoord = { lat: 43.45528, lng: -80.505836 };
     var SMHCoord = {lat: 43.432629, lng: -80.512352};
+    var LHHCoord = {lat: 40.773670, lng: -73.961166};
+    var GMCCoord = {lat: 33.963493, lng: -84.017723};
 
     Mainmap = new google.maps.Map(document.getElementById("map"), {
       zoom: 10,
@@ -102,6 +104,16 @@
       position: SMHCoord,
       map: Mainmap,
       label: "St. Mary’s General Hospital",
+    });
+    var LHHMarker = new google.maps.Marker({
+      position: LHHCoord,
+      map: Mainmap,
+      label: "Lenox Hill Hospital",
+    });
+    var GMCMarker = new google.maps.Marker({
+      position: GMCCoord,
+      map: Mainmap,
+      label: "Gwinnett Medical Center Emergency Department",
     });
   }
 
