@@ -3,4 +3,6 @@ Rails.application.routes.draw do
   root 'landing#landing'
 
   get '/maps', to: 'maps#index'
+  get '/login', to: 'login#index'
+  get '/signup', to: 'signup#index'
 end
