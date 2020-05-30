@@ -1,51 +1,53 @@
-<h1 style="text-align: center;">Maps</h1>
+<body id="windows">
+  <h1 style="text-align: center;">Maps</h1>
 
-<style>
-  /* Set the size of the div element that contains the map */
-  #map {
-    height: 600px; /* The height is 400 pixels */
-    width: 100%; /* The width is the width of the web page */
-  }
-</style>
+  <style>
+    /* Set the size of the div element that contains the map */
+    #map {
+      height: 600px; /* The height is 400 pixels */
+      width: 100%; /* The width is the width of the web page */
+    }
+  </style>
 
-<div id="map"></div>
+  <div id="map"></div>
 
-<div class="inputLoc" style="text-align: center;">
-  <form action="">
-    <textarea
-      style="margin-top: 15px; resize: none;"
-      name=""
-      onkeyup="checkInput(this)"
-      id="LongIn"
-      cols="10"
-      rows="1"
-      placeholder="Longitude"
-    ></textarea>
-    <textarea
-      style="margin-top: 15px; resize: none; margin-left: 5px;"
-      name=""
-      id="LatIn"
-      onkeyup="checkInput(this)"
-      cols="10"
-      rows="1"
-      placeholder="Latitude"
-    ></textarea
-    ><textarea
-      style="margin-top: 15px; resize: none; margin-left: 5px;"
-      name=""
-      id="titleIn"
-      cols="10"
-      rows="1"
-      placeholder="Description"
-    ></textarea>
-  </form>
-  <button
-    style="margin-top: 10px; font-size: medium; cursor: grab;"
-    id="btnAddloc"
-  >
-    Add Location
-  </button>
-</div>
+  <div class="inputLoc" style="text-align: center;">
+    <form action="">
+      <textarea
+        style="margin-top: 15px; resize: none;"
+        name=""
+        onkeyup="checkInput(this)"
+        id="LongIn"
+        cols="10"
+        rows="1"
+        placeholder="Longitude"
+      ></textarea>
+      <textarea
+        style="margin-top: 15px; resize: none; margin-left: 5px;"
+        name=""
+        id="LatIn"
+        onkeyup="checkInput(this)"
+        cols="10"
+        rows="1"
+        placeholder="Latitude"
+      ></textarea
+      ><textarea
+        style="margin-top: 15px; resize: none; margin-left: 5px;"
+        name=""
+        id="titleIn"
+        cols="10"
+        rows="1"
+        placeholder="Description"
+      ></textarea>
+    </form>
+    <button
+      style="margin-top: 10px; font-size: medium; cursor: grab;"
+      id="btnAddloc"
+    >
+      Add Location
+    </button>
+  </div>
+</body>
 
 <script
   async
@@ -62,6 +64,10 @@
   var labels = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   var labelIndex = 0;
 
+  document.getElementById("windows").onload = function () {
+      getCookie();
+  };
+
   document.getElementById("btnAddloc").onclick = function () {
     var long = parseFloat(document.getElementById("LongIn").value);
     var lat = parseFloat(document.getElementById("LatIn").value);
@@ -69,6 +75,7 @@
     var titleInput = document.getElementById("titleIn").value.toString();
     //console.log(coord);
     addMarker(coord, titleInput);
+    setCookie(titleInput, coord, 24);
   };
   function addMarker(coordi, title) {
     var marker = new google.maps.Marker({
@@ -79,11 +86,12 @@
   }
 
   function initMap() {
+    var titleInput = document.getElementById("titleIn").value.toString();
     var myLatLng = { lat: 43.4643, lng: -80.5204 };
     var GRHCoord = { lat: 43.45528, lng: -80.505836 };
-    var SMHCoord = {lat: 43.432629, lng: -80.512352};
-    var LHHCoord = {lat: 40.773670, lng: -73.961166};
-    var GMCCoord = {lat: 33.963493, lng: -84.017723};
+    var SMHCoord = { lat: 43.432629, lng: -80.512352 };
+    var LHHCoord = { lat: 40.77367, lng: -73.961166 };
+    var GMCCoord = { lat: 33.963493, lng: -84.017723 };
 
     Mainmap = new google.maps.Map(document.getElementById("map"), {
       zoom: 10,
@@ -116,7 +124,7 @@
       label: "Gwinnett Medical Center Emergency Department",
     });
     var GHSMarker = new google.maps.Marker({
-      position: {lat: 33.751680, lng: -84.382160},
+      position: { lat: 33.75168, lng: -84.38216 },
       map: Mainmap,
       label: "Grady Health System",
     });
