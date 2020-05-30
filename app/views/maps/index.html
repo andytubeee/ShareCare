@@ -63,13 +63,25 @@
   var labelIndex = 0;
 
   document.getElementById("btnAddloc").onclick = function () {
-    var long = document.getElementById("LongIn").value;
-    var lat = document.getElementById("LatIn").value
-    
+    var long = parseFloat(document.getElementById("LongIn").value);
+    var lat = parseFloat(document.getElementById("LatIn").value);
+    var coord = { lng: long, lat: lat };
+    var titleInput = document.getElementById("titleIn").value.toString();
+    //console.log(coord);
+    addMarker(coord, titleInput);
   };
+  function addMarker(coordi, title) {
+    var marker = new google.maps.Marker({
+      position: coordi,
+      label: title,
+      map: Mainmap,
+    });
+  }
 
   function initMap() {
     var myLatLng = { lat: 43.4643, lng: -80.5204 };
+    var GRHCoord = { lat: 43.45528, lng: -80.505836 };
+    var SMHCoord = {lat: 43.432629, lng: -80.512352};
 
     Mainmap = new google.maps.Map(document.getElementById("map"), {
       zoom: 10,
@@ -80,6 +92,16 @@
       position: myLatLng,
       map: Mainmap,
       label: "Home",
+    });
+    var GRHMarker = new google.maps.Marker({
+      position: GRHCoord,
+      map: Mainmap,
+      label: "Grand River Hospital",
+    });
+    var SMHMarker = new google.maps.Marker({
+      position: SMHCoord,
+      map: Mainmap,
+      label: "St. Mary’s General Hospital",
     });
   }
 
@@ -108,7 +130,7 @@
 
   function checkInput(ob) {
     var invalidChars = /[^0-9]/gi;
-    if (invalidChars.test(ob.value) && ob.value != '-') {
+    if (invalidChars.test(ob.value) && ob.value != "-") {
       ob.value = ob.value.replace(invalidChars, "");
     }
   }
