@@ -12,34 +12,24 @@
   <div id="map"></div>
 
   <div class="inputLoc" style="text-align: center;">
-    <form action="">
-      <textarea
-        style="margin-top: 15px; resize: none;"
-        name=""
-        onkeyup="checkInput(this)"
-        id="LongIn"
-        cols="10"
-        rows="1"
-        placeholder="Longitude"
-      ></textarea>
-      <textarea
-        style="margin-top: 15px; resize: none; margin-left: 5px;"
-        name=""
-        id="LatIn"
-        onkeyup="checkInput(this)"
-        cols="10"
-        rows="1"
-        placeholder="Latitude"
-      ></textarea
-      ><textarea
-        style="margin-top: 15px; resize: none; margin-left: 5px;"
-        name=""
-        id="titleIn"
-        cols="10"
-        rows="1"
-        placeholder="Description"
-      ></textarea>
-    </form>
+    <textarea
+      name=""
+      id="addressIn"
+      style="resize: none;"
+      cols="20"
+      rows="1"
+      placeholder="Address"
+    ></textarea
+    >
+    <textarea
+      style="margin-top: 15px; resize: none; margin-left: 5px;"
+      name=""
+      id="titleIn"
+      cols="20"
+      rows="1"
+      placeholder="Description"
+    ></textarea>
+    <br />
     <button
       style="margin-top: 10px; font-size: medium; cursor: grab;"
       id="btnAddloc"
@@ -65,17 +55,35 @@
   var labelIndex = 0;
 
   document.getElementById("windows").onload = function () {
-      getCookie();
+    getCookie();
   };
 
   document.getElementById("btnAddloc").onclick = function () {
-    var long = parseFloat(document.getElementById("LongIn").value);
-    var lat = parseFloat(document.getElementById("LatIn").value);
-    var coord = { lng: long, lat: lat };
+    var address = document.getElementById("addressIn").value.toString();
+    //var coord = { lng: long, lat: lat };
     var titleInput = document.getElementById("titleIn").value.toString();
-    //console.log(coord);
-    addMarker(coord, titleInput);
-    setCookie(titleInput, coord, 24);
+    var streetNum = address.split(" ")[0];
+    var route = address.split(" ")[1] + address.split(" ")[2];
+    let geocodingURL = `https://maps.googleapis.com/maps/api/geocode/json?address=${streetNum}+${
+      address.split(" ")[1]
+    }+${address.split(" ")[2]}&key=AIzaSyAOonoY7LIvlYYiG319PloED5zVq7MUfkM`;
+    fetch(geocodingURL)
+      .then((res) => res.json())
+      .then((out) => {
+        console.log(out.results[0].access_points[0].location.latitude);
+        console.log(out.results[0].access_points[0].location.longitude);
+        var customCoord = {
+          lat: out.results[0].access_points[0].location.latitude,
+          lng: out.results[0].access_points[0].location.longitude,
+        };
+        console.log(customCoord)
+        addMarker(customCoord, titleInput);
+      })
+      .catch((err) => {
+        throw err;
+        alert(err.toString());
+      });
+    console.log();
   };
   function addMarker(coordi, title) {
     var marker = new google.maps.Marker({
@@ -87,7 +95,7 @@
 
   function initMap() {
     var titleInput = document.getElementById("titleIn").value.toString();
-    var myLatLng = { lat: 43.4643, lng: -80.5204 };
+    var myLatLng = { lat: 40.7128, lng: -74.0060 };
     var GRHCoord = { lat: 43.45528, lng: -80.505836 };
     var SMHCoord = { lat: 43.432629, lng: -80.512352 };
     var LHHCoord = { lat: 40.77367, lng: -73.961166 };
@@ -98,10 +106,20 @@
       center: myLatLng,
     });
 
-    var marker = new google.maps.Marker({
-      position: myLatLng,
+    // var marker = new google.maps.Marker({
+    //   position: myLatLng,
+    //   map: Mainmap,
+    //   label: "Home",
+    // });
+    var NMCmarker = new google.maps.Marker({
+      position: {lat: 40.743610, lng: -73.973210},
       map: Mainmap,
-      label: "Home",
+      label: "NYU Medical Center",
+    });
+    var GSHmarker = new google.maps.Marker({
+      position: {lat: 40.769749, lng: -73.953087},
+      map: Mainmap,
+      label: "Gracie Square Hospital",
     });
     var GRHMarker = new google.maps.Marker({
       position: GRHCoord,
